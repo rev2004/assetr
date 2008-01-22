@@ -2,7 +2,7 @@
 
 ===Software Versions===
 
-PHP5: Right now, the current version of PHP 5 (5.2.5) is required for use. The reason for this is because assetr uses the PHP 5 changes to Object Oriented Code. This includes use for protected/private/public elements in a class. If your webserver does not have the latest version, please put in a request to your webhost and have them update it.
+PHP5: Right now, the current version of PHP 5 (5.2.5) is required for use. The reason for this is because assetr uses the PHP 5 changes to Object Oriented PHP Code. This includes use for protected/private/public elements in a class. If your webserver does not have the latest version, please put in a request to your webhost and have them update it.
 
 MySQL 5: The current version of assetr runs with MySQL 5.
 
