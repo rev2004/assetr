@@ -1,0 +1,30 @@
+#copyright  {
+border-top-style:	solid;
+border-top-width:	1px;
+padding-top:	10px;
+text-align:	center;
+}
+
+#error  {
+color:	#ff0000;
+text-align:	center;
+}
+
+#loginform  {
+float:	none;
+margin-left:	275px;
+text-align:	justify;
+text-indent:	.5in;
+width:	400px;
+}
+
+#logininfo  {
+height:	100px;
+padding-top:	10px;
+text-align:	right;
+top:	0px;
+}
+
+#logo  {
+float:	left;
+}
