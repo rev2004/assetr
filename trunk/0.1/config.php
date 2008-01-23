@@ -19,7 +19,7 @@
 	 * along with assetr.  If not, see <http://www.gnu.org/licenses/>.
 	 *
 	 * What is this file?:
-	 * config.php - This is the configuration file for assetr.
+	 * config.php - This is the configuration file for assetr. - Need help? Check out: http://code.google.com/p/assetr/wiki/Configuration
 	 **/
 
 // SQL info
