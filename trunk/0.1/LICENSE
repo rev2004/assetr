@@ -672,3 +672,8 @@ may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 <http://www.gnu.org/philosophy/why-not-lgpl.html>.
+
+assetr uses the following code:
+
+Yahoo! UI Library <http://developer.yahoo.com/yui/>: YUI is licensed under the BSD License, which a copy can be found in the licenses directory under yuilicense. Copyright 2008 Yahoo! Inc. All Rights Reserved.
+SyntaxHighlighter <http://code.google.com/p/syntaxhighlighter/>: SyntaxHighlighter is licensed under the GNU Lesser General Public License, which a copy can be found in the licenses directory under shlicense. Copyright 2004-2007 Alex Gorbatchev, All Rights Reserved.
