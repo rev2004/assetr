@@ -131,7 +131,7 @@ class assetr {
 		
 	}
 
-	// Generates html code for folder browsing
+	// Generates query information.
 	public function browsefolder($folder_id) {
 
 	}
