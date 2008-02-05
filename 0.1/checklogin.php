@@ -36,7 +36,7 @@ $assetr = new assetr($config);
 // The beauty of OOP code ... one bit of code does a whole lot!
 $cl = $assetr->checklogin($post_username, $post_password, $post_cookie);
 
-if($cl !== 1) {
+if($cl !== 1 && isset($assetr->err_msg)) {
 	$url_err = urlencode("$assetr->err_msg");
 	header("Location: main.php?err=$url_err");
 	break;
