@@ -24,7 +24,7 @@
 
 class assetr {
 
-	/* Protected Functions and Variables */	// These are protected to stop the ability for messing with the settings of assetr.
+	/* Protected Functions and Variables */	// These are protected to stop the messing with the settings of assetr. But to allow for inherited classes to use them.
 	// config.php variables.
 	protected $config = array();
 	
@@ -94,8 +94,29 @@ class assetr {
 	}
 
 	// This function creates the folder
-	public function createfolder($fol_name, $rep_id, $abs_par) {
-
+	public function createfolder($fol_name, $rep_id, $abs_path) {
+		$cf_rep_q = "SELECT `name` FROM ".$this-config['sql']['pre']."repositories WHERE `id` = '".$rep_id."';";
+		$cf_rep_exe = mysql_query($cf_rep_q, $this->sqlconnection);
+		if(!$cf_rep_exe) {
+			$this->err_msg = "Repository Does Not Exist";
+			return 0;
+		}
+		$cf_rep_name = mysql_result($cf_rep_exe, 0); // The first row is the rep name.
+		//Building the absolute path now
+		$cf_query = "INSERT INTO ".$this->config['sql']['pre']."folders ( `id` , `name` , `repositoryid` , `parentfolder` ) VALUES ( '' , '".$fol_name."' , '".$rep_id."' , '".$abs_path."' );";
+		$cf_execute = mysql_query($cf_query, $this->sqlconnection);
+		if(mysql_error()) {
+			$this->err_msg = mysql_error($this->sqlconnection);
+			return 0;
+		}
+		$cf_path = $this->config['folder']['absolute'].$this->config['folder']['rep']."/".$cf_rep_name."/".$abs_path."/".$fol_name;
+		$cf_folder = mkdir($cf_path, $this->config['folder']['permission']);
+		if(!$cf_folder) {
+			$this->err_msg = "Could not create folder ... quitting.";
+			return 0;
+		} else {
+			return 1;
+		}
 	}
 
 	// Creates user account
