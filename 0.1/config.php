@@ -28,6 +28,7 @@ $config['sql']['user'] = "root";
 $config['sql']['password'] = "djroot";
 $config['sql']['database'] = "assetr";
 $config['sql']['pre'] = "";
+$config['sql']['driver'] = "mysql"; // This is the type of database server. Make sure you have the appropriate driver for the type of DB.
 
 // Cookie Variables
 // Login Time. This allows for manual override of the cookie's timeout.

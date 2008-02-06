@@ -1,0 +1,1 @@
+Drivers are classes that allow for connection to different sql server. Instead of building a direct port over for a different SQL server,the only thing someone needs to do is either create a different driver OR use a pre-created driver. The driver's class is a non-inherited class and is only created for the use of assetr.

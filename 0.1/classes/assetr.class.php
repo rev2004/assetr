@@ -30,12 +30,24 @@ class assetr {
 	
 	// The SQL Connection, it is only used from elements in this class.
 	protected $sql_conn;
+	
+	protected $sql_driv;
 
 	// This will load the config into the memory. This is also for connecting to the database.
 	protected function loadconfig($config) {
 		$this->config = $config;
 	}
-
+	
+	protected function loadDriver() {
+		if(include_once("drivers/".$this->config['sql']['driver'].".driver.php")) {
+			$classname = $this->['sql']['driver'];
+			return new $classname;
+		} else {
+			$this->err_msg = "Driver does not exist";
+			return 0;
+		}
+	}
+	
 	// This will connect to the database.
 	protected function dbconnect($dbserver, $dbusername, $dbpassword, $dbdatabase) {
 		$this->sqlconnection = mysql_connect($dbserver, $dbusername, $dbpassword);
@@ -202,6 +214,7 @@ class assetr {
 	/* Class Functions */
 	function __construct($config) {
 		$this->loadconfig($config);
+		$this->sql_driv = $this->loadDriver();
 		$this->dbconnect($this->config['sql']['server'], $this->config['sql']['user'], $this->config['sql']['password'], $this->config['sql']['database']);
 	}	
 
