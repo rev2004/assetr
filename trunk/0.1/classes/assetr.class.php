@@ -31,7 +31,8 @@ class assetr {
 	// The SQL Connection, it is only used from elements in this class.
 	protected $sql_conn;
 	
-	protected $sql_driv;
+	// This is the sql driver class that is loaded in.
+	protected $sqldriver;
 
 	// This will load the config into the memory. This is also for connecting to the database.
 	protected function loadconfig($config) {
@@ -39,21 +40,16 @@ class assetr {
 	}
 	
 	protected function loadDriver() {
-		if(include_once("drivers/".$this->config['sql']['driver'].".driver.php")) {
-			$classname = $this->['sql']['driver'];
-			return new $classname;
+		$driverloc = "drivers/".$this->['sql']['driver'];
+		if(fileexists($driverloc)) {
+			require_once($driverloc);
+			return new sqldriver;
 		} else {
 			$this->err_msg = "Driver does not exist";
 			return 0;
 		}
 	}
-	
-	// This will connect to the database.
-	protected function dbconnect($dbserver, $dbusername, $dbpassword, $dbdatabase) {
-		$this->sqlconnection = mysql_connect($dbserver, $dbusername, $dbpassword);
-		mysql_select_db($dbdatabase);
-	}
-	
+
 	/* Public Functions and Variables */
 	// If there is an error message ...
 	public $err_msg;
@@ -83,7 +79,6 @@ class assetr {
 	public function updateversion($rep_id, $new_ver) {
 		$uv_query = "UPDATE " . $this->config['sql']['pre'] . "repositories SET currver=\"$new_ver\" WHERE id=\"$rep_id\";";
 		$uv_execute = mysql_query($uv_query);
-
 		if(mysql_error()) {
 			$this->err_msg = mysql_error($this->sqlconnection);
 			return 0;
@@ -96,7 +91,6 @@ class assetr {
 	public function updatesubversion($rep_id, $new_sver) {
 		$usv_query = "UPDATE " . $this->config['sql']['pre'] . "repositories SET subver=\"$new_sver\" WHERE id=\"$rep_id\";";
 		$usv_execute = mysql_query($usv_query);
-
 		if(mysql_error()) {
 			$this->err_msg = mysql_error($this->sqlconnection);
 			return 0;
@@ -214,8 +208,8 @@ class assetr {
 	/* Class Functions */
 	function __construct($config) {
 		$this->loadconfig($config);
-		$this->sql_driv = $this->loadDriver();
-		$this->dbconnect($this->config['sql']['server'], $this->config['sql']['user'], $this->config['sql']['password'], $this->config['sql']['database']);
+		$this->sqldriver = $this->loadDriver();
+		$this->sqldriver->connect($this->config['sql']['server'], $this->config['sql']['user'], $this->config['sql']['password'], $this->config['sql']['database']);
 	}	
 
 	function __destruct() {

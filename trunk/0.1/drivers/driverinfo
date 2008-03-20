@@ -1,1 +1,54 @@
-Drivers are classes that allow for connection to different sql server. Instead of building a direct port over for a different SQL server,the only thing someone needs to do is either create a different driver OR use a pre-created driver. The driver's class is a non-inherited class and is only created for the use of assetr.
+========================
+ Info about SQL Drivers
+========================
+Drivers are classes that allow for connection to different sql server types.
+Instead of building a direct port over for a different SQL server,
+the only thing someone needs to do is either create a different driver OR use a pre-created driver.
+The driver's class is a non-inherited class and is only created for the use of assetr.
+
+=====================================
+ Using a SQL Server Driver in assetr
+=====================================
+    This is a two-fold process. First, determine if you have the appropriate driver
+for your SQL server. Make sure that driver is in the drivers subdirectory, and it has the naming
+convention SQLDRIVERTYPE.driver.php (e.g. mysql.driver.php is the mysql driver). Next in
+the config.php file, make sure to set the $config['sql']['driver'] variable to SQLDRIVERTYPE (e.g.
+you would set it to mysql to use that driver). That is it. assetr will then use that driver to connect to the database.
+
+==================================
+ HOWTO Create A Driver for assetr
+==================================
+    Since there are different functions for different SQL servers, we need to have a simpler, more common
+code set that can let assetr do the basic sql commands and still get the same results every time. The driver
+is the backbone between the sql server and assetr. So, while assetr will pass the same query everytime,
+the driver is supposed to help assetr interpret it.
+
+Things to keep in mind:
+    - Each driver is a class (titled sqldriver) that must be created in it's own appropriate sql driver file.
+    - Each driver must conform to the functions below.
+    - The driver must NOT conflict with assetr in any way. It is meant to be a go between from the SQL server and assetr.
+    - All the functions in the class are public.
+    
+PsuedoCode Below:
+
+class sqldriver
+    protected variable connectioninfo
+    public variable queryresult
+    
+    function connect(sqlserver, sqlusername, sqlpassword, sqldatabase)
+        // Code to connect here
+    
+    function query(query)
+        // Code to accept query here
+    
+    function array(queryresult)
+        // Code to make the query result in to an array
+    
+    function numberrows(queryresult)
+        // Code to show how many number of rows are returned in an query.
+    
+    function error()
+        // Code to help spit out the error
+    
+    
+More will be added based on the continuation of programming assetr.
