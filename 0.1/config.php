@@ -23,11 +23,11 @@
 	 **/
 
 // SQL info
-$config['sql']['server'] = "localhost";
-$config['sql']['user'] = "root";
-$config['sql']['password'] = "djroot";
-$config['sql']['database'] = "assetr";
-$config['sql']['pre'] = "";
+$config['sql']['server'] = "localhost"; // Server location
+$config['sql']['user'] = ""; // Username
+$config['sql']['password'] = ""; // Password
+$config['sql']['database'] = "assetr"; // The Database
+$config['sql']['pre'] = ""; // Any prefixes?
 $config['sql']['driver'] = "mysql"; // This is the type of database server. Make sure you have the appropriate driver for the type of DB.
 
 // Cookie Variables
