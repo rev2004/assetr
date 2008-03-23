@@ -40,7 +40,7 @@ class assetr {
 	}
 	
 	protected function loadDriver() {
-		$driverloc = "drivers/".$this->['sql']['driver'];
+		$driverloc = "drivers/".$this->config['sql']['driver'];
 		if(fileexists($driverloc)) {
 			require_once($driverloc);
 			return new sqldriver;
@@ -101,7 +101,7 @@ class assetr {
 
 	// This function creates the folder
 	public function createfolder($fol_name, $rep_id, $abs_path) {
-		$cf_rep_q = "SELECT `name` FROM ".$this-config['sql']['pre']."repositories WHERE `id` = '".$rep_id."';";
+		$cf_rep_q = "SELECT `name` FROM ".$this->config['sql']['pre']."repositories WHERE `id` = '".$rep_id."';";
 		$cf_rep_exe = mysql_query($cf_rep_q, $this->sqlconnection);
 		if(!$cf_rep_exe) {
 			$this->err_msg = "Repository Does Not Exist";

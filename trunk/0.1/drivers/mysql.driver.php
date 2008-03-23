@@ -24,7 +24,6 @@
 
     class sqldriver {
         protected $connectioninfo;
-        public $queryresult;
         
         public function connect($sqlserver, $sqlusername, $sqlpassword, $sqldatabase) {
             $this->connectioninfo = mysql_connect($sqlserver, $sqlusername, $sqlpassword);
@@ -32,6 +31,17 @@
         }
         
         public function query($query) {
-            
+            $queryresult = mysql_query($query, $this->connectioninfo);
+            return $queryresult;
+        }
+        
+        public function error() {
+            return mysql_error($this->connectioninfo);
+        }
+        
+        public function disconnect() {
+            // This will kill off the individual session in this class.
+            mysql_close($this->connectioninfo);
         }
     }
+?>
