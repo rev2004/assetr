@@ -39,11 +39,11 @@ class assetr {
 		$this->config = $config;
 	}
 	
-	protected function loadDriver() {
+	protected function loadDriver($sqlserver, $sqlusername, $sqlpassword, $sqldatabase) {
 		$driverloc = "drivers/".$this->config['sql']['driver'];
 		if(fileexists($driverloc)) {
 			require_once($driverloc);
-			return new sqldriver;
+			return new sqldriver($sqlserver, $sqlusername, $sqlpassword, $sqldatabase);
 		} else {
 			$this->err_msg = "Driver does not exist";
 			return 0;
@@ -58,10 +58,10 @@ class assetr {
 	public function createrepository($rep_name, $version="1", $subver="0", $build="0000") {
 		$cr_date = time();
 		$cr_query = "INSERT INTO " . $this->config['sql']['pre'] . "repositories ( id , name , currver , subver , buildnum , datecreate ) VALUES ( '' , '$rep_name' , '$version' , '$subver' , '$build' , $cr_date);";
-		$cr_execute = mysql_query($cr_query);
+		$cr_execute = $this->sqldriver->query($cr_query);
 		
-		if(mysql_error()) {
-			$this->err_msg = mysql_error($this->sqlconnection);
+		if($this->sqldriver->error()) {
+			$this->err_msg = $this->sqldriver->error();
 			return 0;
 		}
 		// Create repository folder ...
@@ -208,12 +208,11 @@ class assetr {
 	/* Class Functions */
 	function __construct($config) {
 		$this->loadconfig($config);
-		$this->sqldriver = $this->loadDriver();
-		$this->sqldriver->connect($this->config['sql']['server'], $this->config['sql']['user'], $this->config['sql']['password'], $this->config['sql']['database']);
+		$this->sqldriver = $this->loadDriver($this->config['sql']['server'], $this->config['sql']['user'], $this->config['sql']['password'], $this->config['sql']['database']);
 	}	
 
 	function __destruct() {
-		mysql_close($this->sqlconnection);
+		unset($this->sqldriver);
 	}
 }
 ?>
