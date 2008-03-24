@@ -35,6 +35,11 @@
             return $queryresult;
         }
         
+        public function grab_array($arr_info) {
+            $arrayresult = mysql_fetch_array($arr_info);
+            return $arrayresult;
+        }
+        
         public function error() {
             return mysql_error($this->connectioninfo);
         }
