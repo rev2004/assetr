@@ -35,9 +35,19 @@
             return $queryresult;
         }
         
-        public function grab_array($arr_info) {
-            $arrayresult = mysql_fetch_array($arr_info);
+        public function grab_array($data) {
+            $arrayresult = mysql_fetch_array($data);
             return $arrayresult;
+        }
+        
+        public function get_result($data, $row) {
+            $getresult = mysql_result($data, $row);
+            return $getresult;
+        }
+        
+        public function num_rows($data) {
+            $numresult = mysql_num_rows($data);
+            return $numresult;
         }
         
         public function error() {
