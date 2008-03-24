@@ -23,15 +23,15 @@
      **/
 
     class sqldriver {
-        protected $connectioninfo;
+        protected $connection;
         
         public function connect($sqlserver, $sqlusername, $sqlpassword, $sqldatabase) {
             $this->connectioninfo = mysql_connect($sqlserver, $sqlusername, $sqlpassword);
-            mysql_select_db($sqldatabase, $this->connectioninfo);
+            mysql_select_db($sqldatabase, $this->connection);
         }
         
         public function query($query) {
-            $queryresult = mysql_query($query, $this->connectioninfo);
+            $queryresult = mysql_query($query, $this->connection);
             return $queryresult;
         }
         
@@ -41,12 +41,20 @@
         }
         
         public function error() {
-            return mysql_error($this->connectioninfo);
+            return mysql_error($this->connection);
         }
         
         public function disconnect() {
             // This will kill off the individual session in this class.
-            mysql_close($this->connectioninfo);
+            mysql_close($this->connection);
+        }
+        
+        function __construct($sqlserver, $sqlusername, $sqlpassword, $sqldatabase) {
+            $this->connect($sqlserver, $sqlusername, $sqlpassword, $sqldatabase);
+        }
+        
+        function __destruct() {
+            $this->disconnect();
         }
     }
 ?>
